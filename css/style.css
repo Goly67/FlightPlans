@@ -1,0 +1,793 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --accent-color: #e74c3c;
+    --background-color: #ecf0f1;
+    --text-color: #34495e;
+    --button-color: #4CAF50;
+    /* Green */
+    --button-hover-color: #3e8e41;
+    /* Darker green */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    background-image: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1474&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 2rem;
+    min-height: 100vh;
+    zoom: 0.6;
+    /* Zoom out the entire page */
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 990px;
+    margin: 0 auto;
+    backdrop-filter: blur(10px);
+}
+
+h1,
+h2 {
+    color: var(--secondary-color);
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    text-align: center;
+
+}
+
+h2 {
+    font-size: 2rem;
+    margin-top: -1rem;
+    text-align: center;
+}
+
+.flight-plan {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.flight-plan:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.flight-plan h3 {
+    color: var(--secondary-color);
+    margin-top: -1%;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-align: center;
+
+}
+
+.flight-plan p {
+    margin: 0.5rem 0;
+    color: var(--text-color);
+    font-size: 130%;
+}
+
+.no-plans,
+.no-notes {
+    text-align: center;
+    color: var(--text-color);
+    font-style: italic;
+    font-size: 1.2rem;
+    margin-top: -0.5rem;
+}
+
+.notes-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+}
+
+.notes-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.note-item {
+    display: flex; /* Use flex to align items */
+    justify-content: space-between; /* Space between text and buttons */
+    align-items: center; /* Center items vertically */
+    background-color: rgba(255, 255, 255, 0.8);
+    border-left: 5px solid var(--primary-color);
+    border-radius: 5px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.notes-section {
+    margin-top: 2rem;
+    border-top: 2px solid var(--primary-color);
+    padding-top: 2rem;
+}
+
+.note-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.delete-note {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.delete-note:hover {
+    background-color: #c0392b;
+}
+
+.add-note {
+    display: flex;
+    margin-top: 1rem;
+}
+
+.add-note input {
+    flex-grow: 1;
+    padding: 0.75rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px 0 0 5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+}
+
+.add-note button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.add-note button:hover {
+    background-color: #2980b9;
+}
+
+.add-note input:focus {
+    background-color: white;
+    /* Change background color */
+    /* Make border bigger and keep primary color */
+    outline: none;
+    /* Remove default outline */
+}
+
+.copy {
+    /* button */
+    --button-bg: #2980b9;
+    --button-hover-bg: #464646;
+    --button-text-color: #CCCCCC;
+    --button-hover-text-color: #8bb9fe;
+    --button-border-radius: 10px;
+    --button-diameter: 4px;
+    --button-outline-width: 1px;
+    --button-outline-color: rgb(141, 141, 141);
+    /* tooltip */
+    --tooltip-bg: #f4f3f3;
+    --toolptip-border-radius: 4px;
+    --tooltip-font-family: Menlo, Roboto Mono, monospace;
+    /* 👆 this field should not be empty */
+    --tooltip-font-size: 12px;
+    /* 👆 this field should not be empty */
+    --tootip-text-color: rgb(50, 50, 50);
+    --tooltip-padding-x: 7px;
+    --tooltip-padding-y: 7px;
+    --tooltip-offset: 8px;
+    --tooltip-transition-duration: 0.3s;
+  }
+  
+  .copy {
+    box-sizing: border-box;
+    width: 15rem;
+    height: 4rem;
+    border-radius: var(--button-border-radius);
+    background-color: var(--button-bg);
+    color: var(--button-text-color);
+    border: none;
+    cursor: pointer;
+    position: relative;
+    outline: none;
+  }
+  
+  .tooltip {
+    position: absolute;
+    opacity: 0;
+    visibility: 0;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font: var(--tooltip-font-size) var(--tooltip-font-family);
+    color: var(--tootip-text-color);
+    background: var(--tooltip-bg);
+    padding: var(--tooltip-padding-y) var(--tooltip-padding-x);
+    border-radius: var(--toolptip-border-radius);
+    pointer-events: none;
+    transition: all var(--tooltip-transition-duration) cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  .tooltip::before {
+    content: attr(data-text-initial);
+  }
+  
+  .tooltip::after {
+    content: "";
+    position: absolute;
+    bottom: calc(var(--tooltip-padding-y) / 2 * -1);
+    width: var(--tooltip-padding-y);
+    height: var(--tooltip-padding-y);
+    background: inherit;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    z-index: -999;
+    pointer-events: none;
+  }
+  
+  .copy svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    height: 40%;
+    color: white;
+  }
+  
+  .checkmark {
+    display: none;
+  }
+  
+  /* actions */
+  
+  .copy:hover .tooltip,
+  .copy:focus:not(:focus-visible) .tooltip {
+    opacity: 1;
+    visibility: visible;
+    top: calc((100% + var(--tooltip-offset)) * -1);
+  }
+  
+  .copy:focus:not(:focus-visible) .tooltip::before {
+    content: attr(data-text-end);
+  }
+  
+  .copy:focus:not(:focus-visible) .clipboard {
+    display: none;
+  }
+  
+  .copy:focus:not(:focus-visible) .checkmark {
+    display: block;
+  }
+  
+  .copy:hover,
+  .copy:focus {
+    background-color: #004574;
+  }
+  
+  .copy:active {
+    outline: var(--button-outline-width) solid var(--button-outline-color);
+  }
+  
+  .copy:hover svg {
+    color: var(--button-hover-text-color);
+  }
+  
+  .centralize {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .copy2 {
+    /* button */
+    --button-bg: #2980b9;
+    --button-hover-bg: #464646;
+    --button-text-color: #CCCCCC;
+    --button-hover-text-color: #8bb9fe;
+    --button-border-radius: 10px;
+    --button-diameter: 4px;
+    --button-outline-width: 1px;
+    --button-outline-color: rgb(141, 141, 141);
+    /* tooltip */
+    --tooltip-bg: #f4f3f3;
+    --toolptip-border-radius: 4px;
+    --tooltip-font-family: Menlo, Roboto Mono, monospace;
+    /* 👆 this field should not be empty */
+    --tooltip-font-size: 12px;
+    /* 👆 this field should not be empty */
+    --tootip-text-color: rgb(50, 50, 50);
+    --tooltip-padding-x: 7px;
+    --tooltip-padding-y: 7px;
+    --tooltip-offset: 8px;
+    --tooltip-transition-duration: 0.3s;
+  }
+  
+  .copy2 {
+    box-sizing: border-box;
+    width: 4rem;
+    height: 4rem;
+    border-radius: var(--button-border-radius);
+    background-color: var(--button-bg);
+    color: var(--button-text-color);
+    border: none;
+    cursor: pointer;
+    position: relative;
+    outline: none;
+  }
+  .copy2 svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    height: 40%;
+    color: white;
+  }
+  
+  .checkmark {
+    display: none;
+  }
+  
+  /* actions */
+  
+  .copy2:hover .tooltip,
+  .copy2:focus:not(:focus-visible) .tooltip {
+    opacity: 1;
+    visibility: visible;
+    top: calc((100% + var(--tooltip-offset)) * -1);
+  }
+  
+  .copy2:focus:not(:focus-visible) .tooltip::before {
+    content: attr(data-text-end);
+  }
+  
+  .copy2:focus:not(:focus-visible) .clipboard {
+    display: none;
+  }
+  
+  .copy2:focus:not(:focus-visible) .checkmark {
+    display: block;
+  }
+  
+  .copy2:hover,
+  .copy2:focus {
+    background-color: #004574;
+  }
+  
+  .copy2:active {
+    outline: var(--button-outline-width) solid var(--button-outline-color);
+  }
+  
+  .copy2:hover svg {
+    color: var(--button-hover-text-color);
+  }
+
+.atis-section {
+    margin-top: 2rem;
+    border-top: 2px solid var(--primary-color);
+    padding-top: 2rem;
+}
+
+.atis-example {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+    display: flex;
+    /* Enable flexbox for horizontal alignment */
+    justify-content: space-between;
+    /* Distribute space between elements */
+    align-items: center;
+    /* Vertically align items */
+}
+
+.copy-button {
+    background-color: var(--button-color);
+    /* Green */
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 0;
+    /* Remove default margins */
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.copy-button:hover {
+    background-color: var(--button-hover-color);
+    /* Darker green */
+}
+
+.atis-example p {
+    margin: 0.5rem 0;
+    color: var(--text-color);
+    margin-right: 10px;
+    /* Add some spacing between the paragraph and the button */
+}
+
+.atis-example:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+
+.back-button {
+    display: block;
+    margin: -0.6rem auto;
+    padding: 1rem 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: 600;
+    width: 93%;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #2980b9;
+    /* Darker blue */
+}
+
+/* Style for Edit Input */
+#editNote {
+    padding: 0.75rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+}
+
+/* Style for the Edit Container */
+.edit-container {
+    display: none; /* Keep it hidden by default */
+    margin-top: 5px; /* Space above edit input */
+    width: 78.3%; /* Ensure it takes full width of the container */
+}
+
+/* Edit input styles */
+.edit-container input {
+    flex-grow: 1;
+    padding: 0.75rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 10px; /* Rounded corners */
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    width: calc(100% - 10px); /* Adjust width to account for margin */
+    margin-left: 0; /* Reset left margin for mobile */
+    outline: none; /* Remove default outline */
+    border-color: var(--primary-color); /* Default border color */
+}
+
+/* Adjustments for larger screens */
+@media (min-width: 600px) {
+    .edit-container input {
+        width: 32.5rem; /* Fixed width for larger screens */
+        margin-left: -28.3%; /* Specific margin for desktop */
+    }
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    /* Red border */
+    box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.3);
+    background-color: white;
+}
+
+.edit-note,
+.update-note,
+.cancel-edit {
+    background-color: var(--button-color);
+    /* Green */
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 0.9rem;
+    margin-left: 10px;
+    /* Add some spacing between buttons */
+}
+
+.edit-note:hover,
+.update-note:hover,
+.cancel-edit:hover {
+    background-color: var(--button-hover-color);
+    /* Darker green */
+}
+
+
+@media (max-width: 600px) {
+    body {
+        padding: 1rem;
+        zoom: 0.6;
+        /* Zoom out the entire page */
+    }
+
+    .container {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .flight-plan h3 {
+        font-size: 1.2rem;
+    }
+
+    .add-note {
+        flex-direction: column;
+    }
+
+    .add-note input,
+    .add-note button {
+        width: 100%;
+        border-radius: 5px;
+    }
+
+    .add-note button {
+        margin-top: 0.5rem;
+    }
+}
+
+.frequencies-section {
+    /* Space above frequencies section */
+    padding: 10px;
+    background-color: #f0f8ff;
+    /* Light blue background for contrast */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 1.8rem;
+    border-top: 12px solid var(--primary-color);
+    padding-top: 2rem;
+}
+
+.frequencies-section h3 {
+    margin-bottom: 10px;
+    /* Space below the title */
+    font-size: 1.3rem;
+}
+
+#frequencyDropdown {
+    width: 100%;
+    /* Full width for the dropdown */
+    padding: 10px;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    background-color: white;
+    /* White background for the dropdown */
+    display: grid;
+    gap: 0.8rem;
+    /* Reduced gap */
+    font-size: 1.7rem;
+}
+
+#frequencyDisplay {
+    font-weight: bold;
+    /* Bold text for frequency display */
+    color: #333;
+    /* Darker color for visibility */
+    font-size: 1.3rem;
+}
+
+.zoom-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.6rem;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: -1rem;
+}
+
+/* Hover effect */
+.zoom-button:hover {
+    background-color: #0056b3;
+    /* Darker blue on hover */
+    transform: scale(1.05);
+    /* Slightly grow the button */
+}
+
+/* Ensure buttons stack nicely */
+.button-container {
+    display: flex;                /* Use flexbox to layout buttons */
+    justify-content: center;      /* Center the buttons horizontally */
+    gap: 10px;                   /* Space between buttons */
+    margin-top: 1rem; 
+}
+
+.wrapper {
+    display: flex; /* Enables side-by-side layout */
+    justify-content: space-between; /* Space between left and right containers */
+    gap: 20px; /* Space between the two containers */
+    margin: auto; /* Center the wrapper horizontally */
+    padding: 2rem;
+}
+
+.left-container, .right-container {
+    flex: 1; /* Both take equal space */
+    min-width: 400px; /* Ensure they don’t shrink below this */
+    max-width: calc(50% - 10px); /* Ensure they take half the width minus gaps */
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f0f8ff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.right-container {
+    background-color: #f0f8ff; /* Different background for differentiation */
+}
+
+/* Ensure proper stacking on smaller screens */
+@media (max-width: 768px) {
+    .wrapper {
+        flex-direction: column; /* Stack containers vertically */
+    }
+    
+    .left-container, .right-container {
+        max-width: 100%; /* Full width when stacked */
+        margin-bottom: 20px; /* Space between stacked containers */
+    }
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    height: 910px;
+}
+
+.local-news-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.local-news-item-image {
+    width: 100%;
+    /* Full width by default */
+    height: 780px;
+    /* Maintain aspect ratio */
+    object-fit: contain;
+    /* Adjust as needed */
+}
+
+
+.local-news-item {
+    background-color: #f0f8ff; /* Different background for differentiation */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 780px;
+}
+
+.local-news-item-content {
+    padding: 20px;
+    flex-grow: 1;
+    /* This allows the content to expand and fill available space */
+}
+
+.local-news-item h3 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.local-news-item p {
+    font-size: 1.25rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.local-news-item .date {
+    font-size: 1rem;
+    color: var(--muted-color);
+}
+
+.windy-iframe {
+    border-radius: 15px;  /* Adjust to your preference */
+    overflow: hidden;     /* Ensure the content stays within the rounded corners */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow */
+    min-height: 735px;
+}
+
+#image-container:fullscreen {
+    width: 100%;
+    height: 100%;
+    background-color: #fff; /* Optional: background color for full screen */
+}
+
+#fullscreen-btn {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 21px;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none; /* Remove border */
+}
+
+@media (max-width: 768px) {
+    .local-news-item h3 {
+        font-size: 1.5rem;
+    }
+
+    .local-news-item p {
+        font-size: 1rem;
+    }
+}

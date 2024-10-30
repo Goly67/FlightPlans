@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://www.iconpacks.net/icons/2/free-airplane-icon-1755-thumb.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <title>Flight Plans</title>
+</head>
+
+<body>
+    <a href="https://goly67.github.io/FlightPlanning/" class="back-button">Back to Flight Planner</a>
+    <div class="wrapper">
+        <!--Right side-->
+        <div class="right-container">
+            <div class="container">
+                <h1>Flight Plans</h1>
+                <div id="flightPlansList"></div>
+                <div class="frequencies-section">
+                    <h3 style="margin-top: -1.5rem;">Select Airport Frequency</h3>
+                    <select id="frequencyDropdown" onchange="displayFrequency()">
+                        <option value="" disabled selected>Select an airport</option>
+                        <option value="UNICOM - 122.800">Unicom - 122.800</option>
+                        <option value="GCLP_APP - 121.300">Gran Canaria (GCLP) - APP: 121.300</option>
+                        <option value="LEMH_TWR - 121.750">Menorca (LEMH) - TWR: 121.750</option>
+                        <option value="LYTV_TWR - 119.325">Tivat (LYTV) - TWR: 119.325</option>
+                        <option value="EGKK_APP - 126.825">London Gatwick (EGKK) - APP: 126.825</option>
+                        <option value="MDPC_APP - 119.850">Punta Cana (MDPC) - APP: 119.850</option>
+                        <option value="MDST_TWR - 118.300">Cibao (MDST) - TWR: 118.300</option>
+                    </select>
+                    <p id="frequencyDisplay" style="margin-top: 10px; text-align: center; font-size: 2rem;"></p>
+                </div>
+                <div class="atis-section">
+                    <h2>Project flight Server</h2>
+                    <div class="atis-example">
+                        <p>31xxRy8Zpy</p>
+                        <button class="copy2" onclick="copyServer()">
+                            <span>
+                              <svg xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 6.35 6.35" y="0" x="0" height="20" width="20" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg" class="clipboard">
+                                <g>
+                                  <path fill="currentColor" d="M2.43.265c-.3 0-.548.236-.573.53h-.328a.74.74 0 0 0-.735.734v3.822a.74.74 0 0 0 .735.734H4.82a.74.74 0 0 0 .735-.734V1.529a.74.74 0 0 0-.735-.735h-.328a.58.58 0 0 0-.573-.53zm0 .529h1.49c.032 0 .049.017.049.049v.431c0 .032-.017.049-.049.049H2.43c-.032 0-.05-.017-.05-.049V.843c0-.032.018-.05.05-.05zm-.901.53h.328c.026.292.274.528.573.528h1.49a.58.58 0 0 0 .573-.529h.328a.2.2 0 0 1 .206.206v3.822a.2.2 0 0 1-.206.205H1.53a.2.2 0 0 1-.206-.205V1.529a.2.2 0 0 1 .206-.206z"></path>
+                                </g>
+                              </svg>
+                              <svg xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 24 24" y="0" x="0" height="18" width="18" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg" class="checkmark">
+                                <g>
+                                  <path data-original="#000000" fill="currentColor" d="M9.707 19.121a.997.997 0 0 1-1.414 0l-5.646-5.647a1.5 1.5 0 0 1 0-2.121l.707-.707a1.5 1.5 0 0 1 2.121 0L9 14.171l9.525-9.525a1.5 1.5 0 0 1 2.121 0l.707.707a1.5 1.5 0 0 1 0 2.121z"></path>
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
+                    </div>
+                    <div class="atis-example">
+                        <p>PUBLICATC</p>
+                        <button class="copy2" onclick="copyPassword()">
+                            <span>
+                              <svg xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 6.35 6.35" y="0" x="0" height="20" width="20" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg" class="clipboard">
+                                <g>
+                                  <path fill="currentColor" d="M2.43.265c-.3 0-.548.236-.573.53h-.328a.74.74 0 0 0-.735.734v3.822a.74.74 0 0 0 .735.734H4.82a.74.74 0 0 0 .735-.734V1.529a.74.74 0 0 0-.735-.735h-.328a.58.58 0 0 0-.573-.53zm0 .529h1.49c.032 0 .049.017.049.049v.431c0 .032-.017.049-.049.049H2.43c-.032 0-.05-.017-.05-.049V.843c0-.032.018-.05.05-.05zm-.901.53h.328c.026.292.274.528.573.528h1.49a.58.58 0 0 0 .573-.529h.328a.2.2 0 0 1 .206.206v3.822a.2.2 0 0 1-.206.205H1.53a.2.2 0 0 1-.206-.205V1.529a.2.2 0 0 1 .206-.206z"></path>
+                                </g>
+                              </svg>
+                              <svg xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 24 24" y="0" x="0" height="18" width="18" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg" class="checkmark">
+                                <g>
+                                  <path data-original="#000000" fill="currentColor" d="M9.707 19.121a.997.997 0 0 1-1.414 0l-5.646-5.647a1.5 1.5 0 0 1 0-2.121l.707-.707a1.5 1.5 0 0 1 2.121 0L9 14.171l9.525-9.525a1.5 1.5 0 0 1 2.121 0l.707.707a1.5 1.5 0 0 1 0 2.121z"></path>
+                                </g>
+                              </svg>
+                            </span>
+                          </button>
+                    </div>
+                    <div class="atis-section">
+                        <h2>ATIS Example</h2>
+                        <div class="atis-example">
+                            <p>
+                                Gran Canaria (GCLP)
+                                <br />
+                                <br />
+                                GCLP_APP [121.300]: @xaie9
+                                <br />
+                                <br />
+                                [**[CLICK HERE TO FILL UP FLIGHT PLAN]**](https://forms.gle/WfpsCb9wpCvrbcSc6)
+                                <br />
+                                <br />
+                                GRAN CANARIA AIRPORT INFORMATION Q... 1100Z... WIND 080 AT 5 KNOTS, VARIABLE BETWEEN 040
+                                AND
+                                110
+                                DEGREES... VISIBILITY 10 OR MORE KILOMETERS... FEW CLOUDS AT 3000... TEMPERATURE 26,
+                                DEWPOINT
+                                22... QNH 1018, ALTIMETER 3006... VISUAL APPROACHES IN USE... LANDING RUNWAY 03L...
+                                DEPARTING
+                                RUNWAY 21L... ADVISE CONTROLLER ON INITIAL CONTACT THAT YOU HAVE INFORMATION Q...
+                                <br />
+                                <br />
+                                <b style="font-size: 140%;">IMPORTANT:</b> <em><b><br />"DEP NORTHEAST, ARR SOUTHWEST
+                                        RUNWAY"
+                                        WRONG. <br />"DEP SOUTHWEST, ARR SOUTHWEST" CORRECT.</em></b>
+                            </p>
+                            <button class="copy" onclick="copyAtis()">
+                                
+                                <span>
+                                  <svg xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 6.35 6.35" y="0" x="0" height="20" width="20" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg" class="clipboard">
+                                    <g>
+                                      <path fill="currentColor" d="M2.43.265c-.3 0-.548.236-.573.53h-.328a.74.74 0 0 0-.735.734v3.822a.74.74 0 0 0 .735.734H4.82a.74.74 0 0 0 .735-.734V1.529a.74.74 0 0 0-.735-.735h-.328a.58.58 0 0 0-.573-.53zm0 .529h1.49c.032 0 .049.017.049.049v.431c0 .032-.017.049-.049.049H2.43c-.032 0-.05-.017-.05-.049V.843c0-.032.018-.05.05-.05zm-.901.53h.328c.026.292.274.528.573.528h1.49a.58.58 0 0 0 .573-.529h.328a.2.2 0 0 1 .206.206v3.822a.2.2 0 0 1-.206.205H1.53a.2.2 0 0 1-.206-.205V1.529a.2.2 0 0 1 .206-.206z"></path>
+                                    </g>
+                                  </svg>
+                                  <svg xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 24 24" y="0" x="0" height="18" width="18" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg" class="checkmark">
+                                    <g>
+                                      <path data-original="#000000" fill="currentColor" d="M9.707 19.121a.997.997 0 0 1-1.414 0l-5.646-5.647a1.5 1.5 0 0 1 0-2.121l.707-.707a1.5 1.5 0 0 1 2.121 0L9 14.171l9.525-9.525a1.5 1.5 0 0 1 2.121 0l.707.707a1.5 1.5 0 0 1 0 2.121z"></path>
+                                    </g>
+                                  </svg>
+                                </span>
+                              </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Left side-->
+        <div class="left-container">
+            <div class="container">
+                <h2 style="margin-top: -1rem;">Delivery Notes</h2>
+                <div id="notesList1"></div>
+                <div class="add-note">
+                    <input type="text" id="newNote1" placeholder="Add a new note" maxlength="150">
+                    <button onclick="addNote('notesList1', 'newNote1')">Add Note</button>
+                </div>
+                <h2 style="margin-top: 1rem;">Departure Notes</h2>
+                <div id="notesList2"></div>
+                <div class="add-note">
+                    <input type="text" id="newNote2" placeholder="Add a new note" maxlength="150">
+                    <button onclick="addNote('notesList2', 'newNote2')">Add Note</button>
+                </div>
+                <h2 style="margin-top: 1rem;">Arrival Notes</h2>
+                <div id="notesList3"></div>
+                <div class="add-note">
+                    <input type="text" id="newNote3" placeholder="Add a new note" maxlength="150">
+                    <button onclick="addNote('notesList3', 'newNote3')">Add Note</button>
+                </div>
+            </div>
+            <div class="atis-section">
+                <h2>Ground Movement Chart</h2>
+                <label for="groundChartSelector"
+                    style="display: block; text-align: center; margin-top: -1rem; margin-bottom: 1rem; font-size: 1.3rem;">Choose
+                    Ground Movement Chart Image:</label>
+                <select id="groundChartSelector" onchange="updateGroundChart()"
+                    style="font-size: 1.7rem; width: 100%; padding: 0.75rem; border: 2px solid var(--primary-color); border-radius: 5px; margin-bottom: -1.3rem;">
+                    <option value="" disabled selected>Select Ground Movement Chart</option>
+                    <option
+                        value="https://lh5.googleusercontent.com/mJ2MGUrgYV1KxivSu7M7BWnwme7ffr21DhZkh6YnIzo0g8WOtDp_4gBtJqmKclBT6OQI7Iy9-k-rVOa4hJNf7mKLlB0nr3VBz9hu-ntK2HQAj5Il8FCIQg-RupCeQ-67nA">
+                        GCLP - GRAN CANARIA</option>
+                    <option
+                        value="https://lh6.googleusercontent.com/3yOmKryoISuUb2AiJoyx8Q0LUkHXzIeXaITai9S-KONAMphWPrUjyRbiexsEQz3BUtHsVeTViAhJ0BokD8P6DVCRZ67xkZoGnGbTRkxQ_NOubDuUVXwPzbgSGuBXPMXgTQ=w740">
+                        LEMH - MENORCA</option>
+                    <option
+                        value="https://lh5.googleusercontent.com/vmbCHfImd6Qv4qpOwJu2fTZ39NTLkNN2rVocTroq50cwZAszqTjxQOMpTXyGJuH5dwHk_tbm9mpOjSrmtoFUWHa4T7u_Zw81A37dMYBd_7rVL92divF1QyOc2sSOBLtSeg=w740">
+                        EFKT - KITTILA</option>
+                    <option
+                        value="https://lh3.googleusercontent.com/C2_fk7YcIxDezR9Zw9yGy_vXcqPcPiHWYtx90faKte0w7st9jZxpYMGtBxEBCnKq7ZoPI--8WR7mGCRfFmvfbko_UyT54RnfKtyIaTiJgoCBD_VhzLbiwCvrRodCvqoc1A=w740">
+                        MDPC - PUNTA CANA</option>
+                    <option
+                        value="https://lh3.googleusercontent.com/_5Qb6sW5aaKnA-wVCTIFQZ5398vrvExx3q9EjNHnwcOQ7BT94_1oqaIUKuqbDhZQekzBMWiVCRlIiJBbEuygrS5T-fjHnQNj1bPZYj41QBaMQQAfB-zOVwAXCkJENY7pLA=w740">
+                        MDST - CIBAO</option>
+                    <option
+                        value="https://lh5.googleusercontent.com/unwUO92__aQ8C7GF8NqYfXAYWhJ_VEhHeaD9UT21xEwEarOfElU36XF-VJaX9e7cArZ65XMMt4w_okG67lb6jlM0-5A2Ky85-ylLd3_j6KYtS--VMRStUTMis0hH4LI3hA=w740">
+                        EGKK - GATWICK</option>
+                </select>
+
+                <div id="image-container"
+                    style="width: 100%; height: 460px; overflow: hidden; margin: 2em auto; position: relative; border: 1px solid #ccc; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                    <img id="groundChartImage"
+                        src="https://lh5.googleusercontent.com/mJ2MGUrgYV1KxivSu7M7BWnwme7ffr21DhZkh6YnIzo0g8WOtDp_4gBtJqmKclBT6OQI7Iy9-k-rVOa4hJNf7mKLlB0nr3VBz9hu-ntK2HQAj5Il8FCIQg-RupCeQ-67nA"
+                        alt="Ground Movement Chart"
+                        style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1);">
+                    <button id="fullscreen-btn" style="position: absolute; top: 10px; right: 10px; z-index: 1000;">
+                        Toggle Fullscreen
+                    </button>
+                </div>
+
+                <!-- Zoom buttons -->
+                <div class="button-container">
+                    <button onclick="zoomIn()" class="zoom-button">Zoom In</button>
+                    <button onclick="zoomOut()" class="zoom-button">Zoom Out</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="localNews" class="card">
+        <h2 style="text-align: center; font-size: 3rem; color: white;">Project Flight Tracker</h2>
+        <div id="localNewsItem" class="local-news-item">
+            <!-- Local news item will be dynamically inserted here -->
+        </div>
+    </div>
+    <script src="scripts/script.js" defer></script>
+</body>
+
+</html>
