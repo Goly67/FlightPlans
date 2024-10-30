@@ -190,44 +190,23 @@ document.addEventListener("DOMContentLoaded", function () {
 document.getElementById('groundChartSelector').addEventListener('change', updateGroundChart);
 
 
-async function fetchFlightPlans() {
-    try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbxrAjM5YnokoZm1MkkDrGNqdI23uvjatIb3pJTb_uBgooxjz-XKrllj2ILpVYXkPWQcXQ/exec');
-        console.log('Response status:', response.status); // Log status code
-        if (!response.ok) {
-            throw new Error('Network response was not ok: ' + response.statusText);
-        }
-        const flightPlans = await response.json();
-        console.log('Fetched flight plans:', flightPlans); // Log fetched data
-        displayFlightPlans(flightPlans);
-    } catch (error) {
-        console.error('Error fetching flight plans:', error); // Log error if any
-    }
-}
-
-// https://script.google.com/macros/s/AKfycbxrAjM5YnokoZm1MkkDrGNqdI23uvjatIb3pJTb_uBgooxjz-XKrllj2ILpVYXkPWQcXQ/exec
-
-function displayFlightPlans(flightPlans) {
-    console.log('Displaying flight plans:', flightPlans); // Log flight plans
+function displayFlightPlans() {
     const flightPlansList = document.getElementById('flightPlansList');
-    flightPlansList.innerHTML = ''; // Clear existing content
-
-    flightPlans.forEach(plan => {
-        console.log('Flight Plan:', plan); // Log each flight plan
-        const flightPlanElement = document.createElement('div');
-        flightPlanElement.className = 'flight-plan';
-        flightPlanElement.innerHTML = `
-            <p>Callsign: ${plan.Callsign || 'N/A'}</p>
-            <p>Departure: ${plan.Departure || 'N/A'}</p>
-            <p>Arrival: ${plan.Arrival || 'N/A'}</p>
-            <p>Aircraft: ${plan.Aircraft || 'N/A'}</p>
-            <p>Flight Rule: ${plan.FlightRule || 'N/A'}</p>
-            <p>SID: ${plan.SID || 'N/A'}</p>
-            <p>Cruising Level: ${plan.CruisingLevel || 'N/A'}</p>
-            <p>Squawk: ${plan.Squawk || 'N/A'}</p>
-        `;
-        flightPlansList.appendChild(flightPlanElement);
-    });
+    const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
+    if (flightPlans.length === 0) {
+        flightPlansList.innerHTML = '<p class="no-plans">No flight plans submitted yet.</p>';
+        return;
+    }
+    flightPlansList.innerHTML = flightPlans.map(plan => `
+        <div class="flight-plan">
+            <h3>${plan.callsign} - ${plan.departure} to ${plan.arrival}</h3>
+            <p><strong>Aircraft:</strong> ${plan.aircraft}</p>
+            <p><strong>Flight Rule Type:</strong> ${plan.flightRule}</p>
+            <p><strong>SID:</strong> ${plan.sid}</p>
+            <p><strong>Cruising Level:</strong> ${plan.cruisingLevel}</p>
+            <p><strong>Squawk:</strong> ${plan.squawk || 'Not assigned'}</p>
+        </div>
+    `).join('');
 }
 
 function displayNotes(listId) {
@@ -312,7 +291,6 @@ function addNote(listId, inputId) {
 
 // When the page loads, set up the event listeners
 window.onload = function () {
-    fetchFlightPlans(); // Fetch flight plans from Google Sheets
     displayNotes('notesList1'); // For the first notes section
     displayNotes('notesList2'); // For the second notes section
     displayNotes('notesList3'); // For the third notes section
