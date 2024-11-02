@@ -36,7 +36,7 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -43%);
+    transform: translate(-50%, -41%);
     z-index: 10;
     pointer-events: none; /* Allows clicks to pass through to iframe */
 }
