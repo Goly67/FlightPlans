@@ -161,10 +161,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (savedValue) {
             // Set the dropdown to the saved value
-            selector.value = savedValue; 
+            selector.value = savedValue;
 
             // Update the image based on the saved value
-            image.src = savedValue; 
+            image.src = savedValue;
         }
     }
 
@@ -236,7 +236,7 @@ function displayNotes(listId) {
         `).join('')}
     </ul>
 `;
-        }
+}
 
 // Function to handle keydown event for adding and updating notes
 function handleKeyDown(event, listId, inputId, isEditing = false, index = null) {
@@ -270,7 +270,7 @@ function editNote(index, listId) {
     editInput.setSelectionRange(editInput.value.length, editInput.value.length);
 
     // Add a keydown listener to handle Enter key
-    editInput.addEventListener('keydown', (event) => 
+    editInput.addEventListener('keydown', (event) =>
         handleKeyDown(event, listId, `editNote-${index}`, true, index)
     );
 }
@@ -393,6 +393,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function createNewsItem(item) {
         localNewsItem.innerHTML = `
                         <div class="local-news-item-content">
+                        <div class="compass-container">
+            <img src="https://lh5.googleusercontent.com/5SWZemJiwH05gTUEqE4PcTC1OYhPZB38mOmrux7prgoSJ4SXG3t6ei1hqqV8DD2FDYME-j86EsqSFCRjrln4WwwJj1MtpDSbZL4DLruUZchaH7DTQ4JZdKVCtOVqpSWBsA=w739"
+                class="compass" alt="Compass">
+        </div>
                             <iframe 
                                 class="windy-iframe" 
                                 width="100%" 
