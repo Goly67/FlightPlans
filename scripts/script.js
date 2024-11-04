@@ -143,18 +143,30 @@ function loadNotes() {
 function displayNotes(listId) {
     const notesList = document.getElementById(listId);
     const notes = JSON.parse(localStorage.getItem(listId)) || [];
-    notesList.innerHTML = notes.length
-        ? `<ul class="notes-list">
-            ${notes.map((note, index) => `
-                <li class="note-item">
-                    <span class="note-text">${note}</span>
-                    <div class="button-container">
-                        <button class="edit-note" onclick="editNote(${index}, '${listId}')">Edit</button>
-                        <button class="delete-note" onclick="deleteNote(${index}, '${listId}')">Delete</button>
-                    </div>
-                </li>`).join('')}
-        </ul>`
-        : '<p class="no-notes">No notes added yet.</p>';
+
+    if (notes.length === 0) {
+        notesList.innerHTML = '<p class="no-notes">No notes added yet.</p>';
+        return;
+    }
+
+    notesList.innerHTML = `
+    <ul class="notes-list">
+        ${notes.map((note, index) => `
+            <li class="note-item">
+                <span class="note-text">${note}</span> 
+                <div class="button-container"> <!-- Added container -->
+                    <button class="edit-note" onclick="editNote(${index}, '${listId}')">Edit</button>
+                    <button class="delete-note" onclick="deleteNote(${index}, '${listId}')">Delete</button>
+                </div>
+                <div class="edit-container" style="display: none;"> 
+                    <input type="text" id="editNote-${index}" value="${note}">
+                    <button class="update-note" onclick="updateNote(${index}, '${listId}')">Update</button>
+                    <button class="cancel-edit" onclick="cancelEdit(${index}, '${listId}')">Cancel</button>
+                </div>
+            </li>
+        `).join('')}
+    </ul>
+`;
 }
 
 // Function to handle keydown event for adding and updating notes
@@ -265,8 +277,6 @@ function cancelEdit(index, listId) {
     editButton.style.display = 'block';
     deleteButton.style.display = 'block';
 }
-
-
 
 function copyServer() {
     const textToCopy = '31xxRy8Zpy'; // Server code to copy
