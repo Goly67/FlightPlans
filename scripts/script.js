@@ -364,7 +364,7 @@ function copyPassword() {
 }
 
 function copyAtis() {
-    const atisText = `Gran Canaria (GCLP)\n\nGCLP_APP [121.300]: @xaie9\n\n[**[CLICK HERE TO FILL UP FLIGHT PLAN]**](https://forms.gle/WfpsCb9wpCvrbcSc6)\n\n`;
+    const atisText = `Gran Canaria (GCLP)\n\nGCLP_APP [121.300]: @xaie9\n\n`;
     navigator.clipboard.writeText(atisText).then(() => {
         alert('ATIS copied to clipboard.');
     });
