@@ -1,241 +1,160 @@
-let zoomLevel = 1; // Initial zoom level
-let isDragging = false; // For tracking drag status
-let currentX = 0, currentY = 0; // Track current image position
-let initialMouseX, initialMouseY; // Initial mouse position
+let zoomLevel = 1;
+let isDragging = false;
+let currentX = 0, currentY = 0;
+let initialMouseX, initialMouseY;
 
 const image = document.getElementById('groundChartImage');
 const container = document.getElementById('image-container');
+const fullscreenButton = document.getElementById('fullscreen-btn');
+const iframe = document.getElementById('groundChartImage');
 
-// Disable default drag behavior of the image
-image.addEventListener('dragstart', (event) => {
-    event.preventDefault();
-});
+// Disable default image dragging
+image.addEventListener('dragstart', (event) => event.preventDefault());
 
-// Pointer down to start dragging
+// Zoom and transform updates using a single function
+function updateImageTransform() {
+    image.style.transform = zoomLevel === 1
+        ? 'translate(-50%, -50%) scale(1)'
+        : `translate(${currentX}px, ${currentY}px) scale(${zoomLevel})`;
+}
+
+// Debounce transform updates for dragging to improve performance
+function dragImage(event) {
+    if (isDragging) {
+        requestAnimationFrame(() => {
+            currentX += event.clientX - initialMouseX;
+            currentY += event.clientY - initialMouseY;
+            initialMouseX = event.clientX;
+            initialMouseY = event.clientY;
+            updateImageTransform();
+        });
+    }
+}
+
 image.addEventListener('pointerdown', (event) => {
     if (zoomLevel > 1) {
         isDragging = true;
-        image.setPointerCapture(event.pointerId); // Capture pointer events for this element
+        image.setPointerCapture(event.pointerId);
         image.style.cursor = 'grabbing';
-
         initialMouseX = event.clientX;
         initialMouseY = event.clientY;
-
-        // Prevent text selection while dragging
         document.body.style.userSelect = 'none';
     }
 });
 
-// Pointer up to stop dragging
 image.addEventListener('pointerup', () => {
     isDragging = false;
     image.style.cursor = 'grab';
-    // Re-enable text selection
     document.body.style.userSelect = '';
 });
 
-// Pointer move to handle dragging
-image.addEventListener('pointermove', (event) => {
-    if (isDragging) {
-        const dx = event.clientX - initialMouseX;
-        const dy = event.clientY - initialMouseY;
+image.addEventListener('pointermove', dragImage);
 
-        // Update current position directly
-        currentX += dx;
-        currentY += dy;
-
-        // Update image position
-        image.style.transform = `translate(${currentX}px, ${currentY}px) scale(${zoomLevel})`;
-
-        // Update initial mouse position
-        initialMouseX = event.clientX;
-        initialMouseY = event.clientY;
-    }
-});
-
-// Function to zoom in
 function zoomIn() {
-    zoomLevel = Math.min(zoomLevel + 0.2, 3); // Cap zoom level to 3
+    zoomLevel = Math.min(zoomLevel + 0.2, 3);
     updateImageTransform();
 }
 
-// Function to zoom out
 function zoomOut() {
-    zoomLevel = Math.max(zoomLevel - 0.2, 1); // Minimum zoom level of 1
+    zoomLevel = Math.max(zoomLevel - 0.2, 1);
     updateImageTransform();
 }
 
-// Update image transform based on zoom
-function updateImageTransform() {
-    if (zoomLevel === 1) {
-        // Reset offsets when zooming out to original size
-        currentX = 0;
-        currentY = 0;
-        image.style.transform = 'translate(-50%, -50%) scale(1)';
-    } else {
-        image.style.transform = `translate(${currentX}px, ${currentY}px) scale(${zoomLevel})`;
-    }
-}
-
-// Function to handle changing the image
+// Ground chart selection handling with cached state
 function updateGroundChart() {
     const selector = document.getElementById('groundChartSelector');
     const selectedValue = selector.value;
-
-    // Update image source
     image.src = selectedValue;
-
-    // Reset zoom level and transform to center
+    localStorage.setItem('selectedGroundChart', selectedValue);
     zoomLevel = 1;
     currentX = 0;
     currentY = 0;
-    image.style.transform = 'translate(-50%, -50%) scale(1)';
+    updateImageTransform();
 }
 
-const fullscreenButton = document.getElementById('fullscreen-btn');
-const iframe = document.getElementById('groundChartImage');
-
-// Toggle full screen
+// Full-screen toggle
 function toggleFullScreen() {
     if (!document.fullscreenElement) {
-        // Request full screen for the iframe
-        iframe.requestFullscreen().catch(err => {
-            console.error(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
-        });
+        iframe.requestFullscreen().catch(err => console.error(`Error enabling full-screen: ${err.message}`));
     } else {
         document.exitFullscreen();
     }
 }
 
-// Event listener for fullscreen button
 fullscreenButton.addEventListener('click', toggleFullScreen);
+
+// Load initial state and setup listeners only once
+document.addEventListener("DOMContentLoaded", () => {
+    const selector = document.getElementById('groundChartSelector');
+    selector.addEventListener('change', updateGroundChart);
+    
+    const savedValue = localStorage.getItem('selectedGroundChart');
+    if (savedValue) {
+        selector.value = savedValue;
+        image.src = savedValue;
+    }
+    
+    updateGroundChart();
+
+    // Handle local storage only once and use cached data for displaying flight plans, notes, etc.
+    displayFlightPlans();
+    loadNotes();
+
+    // Frequency display on change
+    const dropdown = document.getElementById('frequencyDropdown');
+    dropdown.addEventListener('change', displayFrequency);
+    const savedFrequency = localStorage.getItem('selectedFrequency');
+    if (savedFrequency) {
+        dropdown.value = savedFrequency;
+        displayFrequency();
+    }
+});
 
 function displayFrequency() {
     const dropdown = document.getElementById('frequencyDropdown');
-    const selectedFrequency = dropdown.value; // Get selected frequency
-    const displayElement = document.getElementById('frequencyDisplay'); // Get the display element
-
-    console.log("Selected Frequency:", selectedFrequency); // Debugging log
-
-    if (selectedFrequency) {
-        displayElement.textContent = `${selectedFrequency}`; // Display selected frequency
-        localStorage.setItem('selectedFrequency', selectedFrequency); // Save to localStorage
-    } else {
-        displayElement.textContent = ''; // Clear if nothing selected
-    }
+    const selectedFrequency = dropdown.value;
+    const displayElement = document.getElementById('frequencyDisplay');
+    displayElement.textContent = selectedFrequency;
+    localStorage.setItem('selectedFrequency', selectedFrequency);
 }
 
-window.onload = function () {
-    // Check if there's a saved selection in localStorage
-    const savedFrequency = localStorage.getItem('selectedFrequency');
-    console.log("Saved Frequency from localStorage:", savedFrequency); // Debugging log
-
-    if (savedFrequency) {
-        const dropdown = document.getElementById('frequencyDropdown');
-        dropdown.value = savedFrequency; // Set the dropdown to the saved value
-        displayFrequency(); // Display the saved frequency
-    }
-};
-
-document.addEventListener("DOMContentLoaded", function () {
-    // Get references to the dropdown and image elements
-    const selector = document.getElementById("groundChartSelector");
-    const image = document.getElementById("groundChartImage");
-
-    // Function to update the ground chart based on the selected value
-    function updateGroundChart() {
-        const selectedValue = selector.value;
-
-        if (selectedValue) {
-            // Update the image source
-            image.src = selectedValue;
-
-            // Save the selected value to localStorage
-            localStorage.setItem('selectedGroundChart', selectedValue);
-        }
-    }
-
-    // Function to load the saved ground chart on page load
-    function loadSavedGroundChart() {
-        const savedValue = localStorage.getItem('selectedGroundChart');
-
-        if (savedValue) {
-            // Set the dropdown to the saved value
-            selector.value = savedValue;
-
-            // Update the image based on the saved value
-            image.src = savedValue;
-        }
-    }
-
-    // Load saved notes for all sections
-    function loadNotes() {
-        displayNotes('notesList1'); // For the first notes section
-        displayNotes('notesList2'); // For the second notes section
-        displayNotes('notesList3'); // For the third notes section
-    }
-
-    // Attach the updateGroundChart function to the dropdown change event
-    selector.addEventListener('change', updateGroundChart);
-
-    // Load the saved ground chart and notes on page load
-    window.onload = function () {
-        loadSavedGroundChart();
-        loadNotes();
-    };
-});
-
-
-// Add an event listener to the ground chart selector
-document.getElementById('groundChartSelector').addEventListener('change', updateGroundChart);
-
+// Other utility functions here...
 
 function displayFlightPlans() {
     const flightPlansList = document.getElementById('flightPlansList');
     const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
-    if (flightPlans.length === 0) {
-        flightPlansList.innerHTML = '<p class="no-plans">No flight plans submitted yet.</p>';
-        return;
-    }
-    flightPlansList.innerHTML = flightPlans.map(plan => `
-        <div class="flight-plan">
-            <h3>${plan.callsign} - ${plan.departure} to ${plan.arrival}</h3>
-            <p><strong>Aircraft:</strong> ${plan.aircraft}</p>
-            <p><strong>Flight Rule Type:</strong> ${plan.flightRule}</p>
-            <p><strong>SID:</strong> ${plan.sid}</p>
-            <p><strong>Cruising Level:</strong> ${plan.cruisingLevel}</p>
-            <p><strong>Squawk:</strong> ${plan.squawk || 'Not assigned'}</p>
-        </div>
-    `).join('');
+    flightPlansList.innerHTML = flightPlans.length
+        ? flightPlans.map(plan => `
+            <div class="flight-plan">
+                <h3>${plan.callsign} - ${plan.departure} to ${plan.arrival}</h3>
+                <p><strong>Aircraft:</strong> ${plan.aircraft}</p>
+                <p><strong>Flight Rule Type:</strong> ${plan.flightRule}</p>
+                <p><strong>SID:</strong> ${plan.sid}</p>
+                <p><strong>Cruising Level:</strong> ${plan.cruisingLevel}</p>
+                <p><strong>Squawk:</strong> ${plan.squawk || 'Not assigned'}</p>
+            </div>`).join('')
+        : '<p class="no-plans">No flight plans submitted yet.</p>';
+}
+
+function loadNotes() {
+    ['notesList1', 'notesList2', 'notesList3'].forEach(displayNotes);
 }
 
 function displayNotes(listId) {
     const notesList = document.getElementById(listId);
     const notes = JSON.parse(localStorage.getItem(listId)) || [];
-
-    if (notes.length === 0) {
-        notesList.innerHTML = '<p class="no-notes">No notes added yet.</p>';
-        return;
-    }
-
-    notesList.innerHTML = `
-    <ul class="notes-list">
-        ${notes.map((note, index) => `
-            <li class="note-item">
-                <span class="note-text">${note}</span> 
-                <div class="button-container"> <!-- Added container -->
-                    <button class="edit-note" onclick="editNote(${index}, '${listId}')">Edit</button>
-                    <button class="delete-note" onclick="deleteNote(${index}, '${listId}')">Delete</button>
-                </div>
-                <div class="edit-container" style="display: none;"> 
-                    <input type="text" id="editNote-${index}" value="${note}">
-                    <button class="update-note" onclick="updateNote(${index}, '${listId}')">Update</button>
-                    <button class="cancel-edit" onclick="cancelEdit(${index}, '${listId}')">Cancel</button>
-                </div>
-            </li>
-        `).join('')}
-    </ul>
-`;
+    notesList.innerHTML = notes.length
+        ? `<ul class="notes-list">
+            ${notes.map((note, index) => `
+                <li class="note-item">
+                    <span class="note-text">${note}</span>
+                    <div class="button-container">
+                        <button class="edit-note" onclick="editNote(${index}, '${listId}')">Edit</button>
+                        <button class="delete-note" onclick="deleteNote(${index}, '${listId}')">Delete</button>
+                    </div>
+                </li>`).join('')}
+        </ul>`
+        : '<p class="no-notes">No notes added yet.</p>';
 }
 
 // Function to handle keydown event for adding and updating notes
