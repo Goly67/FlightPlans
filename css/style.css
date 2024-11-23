@@ -70,7 +70,6 @@ h2 {
 h1 {
     font-size: 2.5rem;
     text-align: center;
-
 }
 
 h2 {
@@ -297,6 +296,7 @@ h2 {
     opacity: 1;
     visibility: visible;
     top: calc((100% + var(--tooltip-offset)) * -1);
+    transition: background-color 0.3s ease;
   }
   
   .copy:focus:not(:focus-visible) .tooltip::before {
@@ -314,14 +314,17 @@ h2 {
   .copy:hover,
   .copy:focus {
     background-color: #004574;
+    transition: background-color 0.3s ease;
   }
   
   .copy:active {
     outline: var(--button-outline-width) solid var(--button-outline-color);
+    transition: background-color 0.3s ease;
   }
   
   .copy:hover svg {
     color: var(--button-hover-text-color);
+    transition: background-color 0.3s ease;
   }
   
   .centralize {
@@ -536,7 +539,6 @@ input:focus,
 select:focus {
     outline: none;
     border-color: var(--accent-color);
-    /* Red border */
     box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.3);
     background-color: white;
 }
@@ -789,6 +791,26 @@ iframe {
     width: 100%;
     height: 100%;
     border: none; /* Remove border */
+}
+
+.edit-button-container {
+    text-align: right;
+    margin-top: -55px;
+}
+
+.edit-button {
+    background-color: #007bff; /* Bootstrap blue color */
+    transition: background-color 0.3s ease;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 25px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.edit-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
 }
 
 @media (max-width: 768px) {
