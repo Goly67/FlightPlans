@@ -123,6 +123,7 @@ function displayFrequency() {
 function displayFlightPlans() {
     const flightPlansList = document.getElementById('flightPlansList');
     const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
+    
     flightPlansList.innerHTML = flightPlans.length
         ? flightPlans.map(plan => `
             <div class="flight-plan">
@@ -132,8 +133,16 @@ function displayFlightPlans() {
                 <p><strong>SID:</strong> ${plan.sid}</p>
                 <p><strong>Cruising Level:</strong> ${plan.cruisingLevel}</p>
                 <p><strong>Squawk:</strong> ${plan.squawk || 'Not assigned'}</p>
-            </div>`).join('')
+                <div class="edit-button-container">
+                    <button class="edit-button" onclick="redirectToEdit()">EDIT FLIGHT PLAN</button>
+                </div>
+            </div>
+        `).join('')
         : '<p class="no-plans">No flight plans submitted yet.</p>';
+}
+
+function redirectToEdit() {
+    window.location.href = 'https://goly67.github.io/FlightsEditor/';
 }
 
 function loadNotes() {
