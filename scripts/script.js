@@ -43,10 +43,12 @@ function checkLoginStatus() {
   .catch(error => {
       console.error('Error validating token:', error);
       alert("An error occurred. Please log in again.");
+      localStorage.removeItem("authToken"); // Ensure token is cleared on error
+      localStorage.removeItem("userName");
+      localStorage.removeItem("isLoggedIn");
       window.location.href = 'https://goly67.github.io/FlightPlannerLogin/';
   });
 }
-
 window.onload = function() {
   // Check if the user is logged in when the page loads
   checkLoginStatus();
